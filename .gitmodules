@@ -1,0 +1,3 @@
+[submodule ".terminal_themes/dracula"]
+	path = .terminal_themes/dracula
+	url = https://github.com/dracula/terminal.app.git
