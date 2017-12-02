@@ -8,3 +8,5 @@
 	name = Josh Moles
 [github]
 	user = jmoles
+[core]
+	editor = vim
