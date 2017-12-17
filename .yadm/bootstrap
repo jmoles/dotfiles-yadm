@@ -33,6 +33,12 @@ elif [ "$system_type" = "Linux" ]; then
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
     sudo apt-get update
     sudo apt-get --yes install sublime-text
+    # Configure Package Control
+    mkdir -p ~/.config/sublime-text-3/Installed\ Packages
+    wget -O ~/.config/sublime-text-3/Installed\ Packages/Package\ Control.sublime-package https://packagecontrol.io/Package%20Control.sublime-package
+    # Link to Dropbox
+    rm -rf ~/.config/sublime-text-3/Packages/User
+    ln -s ~/Dropbox/conf/sublime-text-3/Packages/User ~/.config/sublime-text-3/Packages/User
   fi
 
   # Install dropbox
