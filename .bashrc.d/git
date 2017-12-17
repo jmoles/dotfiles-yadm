@@ -1,0 +1,4 @@
+if [ -f "/usr/lib/git-core/git-sh-prompt" ]; then
+	source /usr/lib/git-core/git-sh-prompt
+	export GIT_PS1_SHOWDIRTYSTATE="1"
+fi
