@@ -24,7 +24,7 @@ if [ "$system_type" = "Darwin" ]; then
 elif [ "$system_type" = "Linux" ]; then
 
   # Install my packages
-  sudo apt-get --yes install apt-transport-https build-essential git python-gpgme vim
+  sudo apt-get --yes install apt-transport-https build-essential exfat-fuse git python-gpgme vim
 
   # Install sublime text
   if ! command -v subl >/dev/null 2>&1; then
