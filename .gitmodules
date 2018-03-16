@@ -4,3 +4,9 @@
 [submodule ".gnome-terminal-colors-dracula"]
 	path = .gnome-terminal-colors-dracula
 	url = https://github.com/GalaticStryder/gnome-terminal-colors-dracula
+[submodule ".xcode-dracula"]
+	path = .xcode-dracula
+	url = https://github.com/dracula/xcode.git
+[submodule ".dracula-vim"]
+	path = .dracula-vim
+	url = https://github.com/dracula/vim.git
