@@ -27,7 +27,7 @@ if [ "$system_type" = "Darwin" ]; then
 elif [ "$system_type" = "Linux" ]; then
 
   # Install my packages
-  sudo apt-get --yes install apt-transport-https bash-completion build-essential darktable dconf-cli exfat-fuse gimp git ipython3 python-gpgme python3-ipython vim
+  sudo apt-get --yes install apt-transport-https bash-completion build-essential curl darktable dconf-cli exfat-fuse gimp git ipython3 libpython3-dev python-gpgme python3-ipython python3-wheel python3-venv vim
 
   # Install dracula terminal theme
   ./.gnome-terminal-colors-dracula/install.sh -s Dracula -p Dracula --install-dircolors
@@ -54,5 +54,25 @@ elif [ "$system_type" = "Linux" ]; then
     sudo apt-get --yes install /tmp/dropbox.deb
   fi
 
+  # Install atom
+  if ! command -v dropbox >/dev/null 2>&1; then
+    curl -sL https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+    sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+    sudo apt-get update
+    sudo apt-get install atom
+
+    # Link to dropbox
+    rm -rf ~/.atom
+    ln -s ~/Dropbox/conf/atom ~/.atom
+  fi
+
+  # Install vim plugins
+  vim +PluginInstall +qall
 
 fi
+
+# Initialize submodules
+echo "Init submodules"
+yadm submodule update --recursive --init
+
+
