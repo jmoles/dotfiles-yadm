@@ -24,6 +24,11 @@ if [ "$system_type" = "Darwin" ]; then
   # Install python virtualenv
   pip3 install virtualenv
 
+  # Install the Xcode theme
+
+  mkdir -p ~/Library/Developer/Xcode/UserData/FontAndColorThemes/
+  ln -s ~/.xcode-dracula/Dracula.xccolortheme ~/Library/Developer/Xcode/UserData/FontAndColorThemes/Dracula.xccolortheme
+
 elif [ "$system_type" = "Linux" ]; then
 
   # Install my packages
