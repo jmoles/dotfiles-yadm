@@ -37,6 +37,9 @@ elif [ "$system_type" = "Linux" ]; then
   # Install dracula terminal theme
   ./.gnome-terminal-colors-dracula/install.sh -s Dracula -p Dracula --install-dircolors
 
+  # Fix issue with alsa asound.state not existing.
+  sudo alsactl -f /var/lib/alsa/asound.state store
+
   # Install vim plugins
   vim +PluginInstall +qall
 
