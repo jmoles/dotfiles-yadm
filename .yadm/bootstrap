@@ -32,7 +32,7 @@ if [ "$system_type" = "Darwin" ]; then
 elif [ "$system_type" = "Linux" ]; then
 
   # Install my packages
-  sudo apt-get --yes install apt-transport-https bash-completion build-essential curl dconf-cli exfat-fuse gimp git ipython3 libpython3-dev ncdu nfs-common python3-ipython python3-wheel python3-venv syncthing vim
+  sudo apt-get --yes install apt-transport-https bash-completion build-essential curl dconf-cli dconf-editor exfat-fuse gimp git ipython3 libpython3-dev ncdu nfs-common python3-ipython python3-wheel python3-venv syncthing vim
 
   # Install dracula terminal theme
   ./.gnome-terminal-colors-dracula/install.sh -s Dracula -p Dracula --install-dircolors
@@ -42,6 +42,9 @@ elif [ "$system_type" = "Linux" ]; then
 
   # Install vim plugins
   vim +PluginInstall +qall
+
+  # Mute system sounds
+  gsettings set org.gnome.desktop.sound event-sounds false
 
 fi
 
