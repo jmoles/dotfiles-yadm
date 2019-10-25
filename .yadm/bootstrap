@@ -37,14 +37,19 @@ elif [ "$system_type" = "Linux" ]; then
   # Install dracula terminal theme
   ./.gnome-terminal-colors-dracula/install.sh -s Dracula -p Dracula --install-dircolors
 
-  # Fix issue with alsa asound.state not existing.
-  sudo alsactl -f /var/lib/alsa/asound.state store
-
   # Install vim plugins
   vim +PluginInstall +qall
 
   # Mute system sounds
   gsettings set org.gnome.desktop.sound event-sounds false
+  
+  # Install visual studio code.
+  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+  sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+  sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+  sudo apt-get install apt-transport-https
+  sudo apt-get update
+  sudo apt-get install code
 
 fi
 
