@@ -31,6 +31,12 @@ if [ "$system_type" = "Darwin" ]; then
 
 elif [ "$system_type" = "Linux" ]; then
 
+  # Add the release PGP keys:
+  curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+
+  # Add the "stable" channel to your APT sources:
+  echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+
   # Install my packages
   sudo apt-get --yes install apt-transport-https bash-completion build-essential curl dconf-cli dconf-editor exfat-fuse gimp git ipython3 libpython3-dev ncdu nfs-common python3-ipython python3-wheel python3-venv syncthing vim
 
