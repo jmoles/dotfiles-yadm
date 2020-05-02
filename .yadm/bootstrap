@@ -31,14 +31,33 @@ if [ "$system_type" = "Darwin" ]; then
 
 elif [ "$system_type" = "Linux" ]; then
 
-  # Add the release PGP keys:
-  curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+  # Install some tools needed to setup repos.
+  sudo apt install --yes apt-transport-https curl gpg
 
-  # Add the "stable" channel to your APT sources:
+  # Add external repos
+  ## Syncthing Repos
+  curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
   echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 
+  ## Visual Studio Code Repos
+  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+  sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+  sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+  ## Brave Repos
+  curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+  echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
   # Install my packages
-  sudo apt-get --yes install apt-transport-https bash-completion build-essential curl dconf-cli dconf-editor exfat-fuse gimp git ipython3 libpython3-dev ncdu nfs-common python3-ipython python3-wheel python3-venv syncthing vim
+  sudo apt update
+  ## System Tools
+  sudo apt install --yes aptitude bash-completion build-essential dconf-cli dconf-editor exfat-fuse ncdu nfs-common syncthing
+  ## Development
+  sudo apt install --yes code git ipython3 libpython3-dev python3-ipython python3-wheel python3-venv vim
+  ## Design
+  sudo apt install --yes gimp darktable rawtherapee scribus inkscape
+  ## Browsers
+  sudo apt install --yes brave-browser
 
   # Install dracula terminal theme
   ./.gnome-terminal-colors-dracula/install.sh -s Dracula -p Dracula --install-dircolors
@@ -48,13 +67,6 @@ elif [ "$system_type" = "Linux" ]; then
 
   # Mute system sounds
   gsettings set org.gnome.desktop.sound event-sounds false
-  
-  # Install visual studio code.
-  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-  sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
-  sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-  sudo apt-get update
-  sudo apt-get --yes install code
 
 fi
 
